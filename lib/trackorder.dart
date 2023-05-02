@@ -28,7 +28,22 @@ class _TrackOrderPageState extends State<TrackOrder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Track Order'),
+        backgroundColor:Color(0xFF1c1c1c),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(10),
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_rounded),
+          color:Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title:Row(
+          children: [
+            Text("Track Order",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18)),
+          ],
+        ),
       ),
       body: ListView.builder(
         itemCount: _orderStatuses.length,

@@ -5,7 +5,6 @@ import 'dart:convert';
 class Temperature_page extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _TemperaturePage();
   }
 }
@@ -13,6 +12,7 @@ class Temperature_page extends StatefulWidget {
 class _TemperaturePage extends State<Temperature_page> {
   String? data;
   var all_data;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -21,6 +21,9 @@ class _TemperaturePage extends State<Temperature_page> {
   }
 
   void getData() async {
+    setState(() {
+      isLoading = true;
+    });
     http.Response response = await http.get(Uri.parse(
         "https://bluebirdgo.000webhostapp.com/API/viewtempdata%20(1).php"));
 
@@ -28,6 +31,7 @@ class _TemperaturePage extends State<Temperature_page> {
       data = response.body;
       print(response.body);
       setState(() {
+        isLoading = false;
         all_data = jsonDecode(data!)['temperature'];
       });
     }
@@ -35,27 +39,59 @@ class _TemperaturePage extends State<Temperature_page> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Temperature"),
+        backgroundColor:Color(0xFF1c1c1c),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(10),
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_rounded),
+          color:Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title:Row(
+          children: [
+            Text("Temperature",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18)),
+          ],
+        ),
       ),
-      body: ListView.builder(
+      body: isLoading ? Center(child: CircularProgressIndicator(color: Color(0xFF1c1c1c))) :  ListView.builder(
         itemCount: all_data == null ? 0 : all_data.length,
+        padding: EdgeInsets.only(top: 16),
         itemBuilder: (BuildContext context, int index) {
           return Card(
-              clipBehavior: Clip.antiAlias,
+              margin: EdgeInsets.only(left: 16,right: 16,top: 8,bottom: 8),
+              color: Color(0xFF1c1c1c),
+              shape: RoundedRectangleBorder(
+                  side: new BorderSide(color: Colors.grey, width: 3.0),
+                  borderRadius:  BorderRadius.only(
+                      topLeft: Radius.circular(24.0),
+                      topRight: Radius.circular(24.0),
+                      bottomLeft: Radius.circular(24.0),
+                      bottomRight: Radius.circular(24.0))
+              ),
+              elevation: 8,
               child: Column(
                 children: [
-                  ListTile(
-                    title: Text(
-                        jsonDecode(data!)['temperature'][index]['hum_value']),
+                  Padding(padding: EdgeInsets.only(left: 16,right: 16,top: 24,bottom: 8),
+                    child: Row(
+                      children: [
+                        Text("Reading Time: ", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+                        Text(jsonDecode(data!)['temperature'][index]['reading_value'],
+                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal))
+                      ],
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      jsonDecode(data!)['temperature'][index]['reading_value'],
-                      style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                  Padding(padding: EdgeInsets.only(left: 16,right: 16,top: 8,bottom: 24),
+                    child: Row(
+                      children: [
+                        Text("Value: ", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+                        Text(jsonDecode(data!)['temperature'][index]['hum_value'],
+                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal))
+                      ],
                     ),
                   ),
                 ],
