@@ -128,15 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  //forgot password screen
-                },
-                child: const Text(
-                  'Forgot Password ?',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+              SizedBox(height: 30,),
               Container(
                   height: 50,
                   margin: EdgeInsets.all(10),
@@ -159,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     onPressed: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => SignupPage()));
+                          MaterialPageRoute(builder: (context) => SignUpPage()));
                       //signup screen
                     },
                   )
