@@ -25,14 +25,14 @@ class _TemperaturePage extends State<Temperature_page> {
       isLoading = true;
     });
     http.Response response = await http.get(Uri.parse(
-        "https://bluebirdgo.000webhostapp.com/API/viewtempdata%20(1).php"));
+        "https://bluebirdgo.000webhostapp.com/API/tempsensordata.php"));
 
     if (response.statusCode == 200) {
       data = response.body;
       print(response.body);
       setState(() {
         isLoading = false;
-        all_data = jsonDecode(data!)['temperature'];
+        all_data = jsonDecode(data!)['Temp'];
       });
     }
   }
@@ -80,7 +80,7 @@ class _TemperaturePage extends State<Temperature_page> {
                     child: Row(
                       children: [
                         Text("Reading Time: ", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
-                        Text(jsonDecode(data!)['temperature'][index]['reading_value'],
+                        Text(jsonDecode(data!)['Temp'][index]['date'],
                             style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal))
                       ],
                     ),
@@ -89,7 +89,7 @@ class _TemperaturePage extends State<Temperature_page> {
                     child: Row(
                       children: [
                         Text("Value: ", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
-                        Text(jsonDecode(data!)['temperature'][index]['hum_value'],
+                        Text(jsonDecode(data!)['Temp'][index]['read'],
                             style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal))
                       ],
                     ),
