@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parcel_management/product_page.dart';
 import 'package:parcel_management/temperature_page.dart';
 import 'package:parcel_management/trackorder.dart';
 import 'package:parcel_management/nearby_office.dart';
@@ -36,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => TrackOrder()));
+                                builder: (context) => Product_page()));
                             //signup screen
                           },
                         ),

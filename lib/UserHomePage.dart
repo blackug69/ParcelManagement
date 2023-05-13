@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:parcel_management/product_page.dart';
 import 'package:parcel_management/temperature_page.dart';
 import 'package:parcel_management/trackorder.dart';
 
@@ -82,7 +83,7 @@ class _UserHomePageState extends State<UserHomePage>with TickerProviderStateMixi
             child: InkWell(
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => TrackOrder()));
+                    builder: (context) => Product_page()));
               },
               child: Container(
                 padding: EdgeInsets.all(36),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'UserHomePage.dart';
+import 'add_product.dart';
 import 'exit_confirmation_dialog.dart';
 class UserMainDrawer extends StatelessWidget {
 
@@ -50,6 +51,22 @@ class UserMainDrawer extends StatelessWidget {
                       },
                       leading: Icon(Icons.home,color:Color(0xFF1c1c1c),),
                       title: Text('Home',
+                        style: TextStyle(
+                            fontSize: 16,color: Colors.black54),
+                      ),
+                    ),
+                    Container(
+                      height: 1,
+                      margin: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Divider(thickness: 1,),
+                    ),
+                    ListTile(
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AddProductPage()));
+                      },
+                      leading: Icon(Icons.add_business,color:Color(0xFF1c1c1c),),
+                      title: Text('Add Product',
                         style: TextStyle(
                             fontSize: 16,color: Colors.black54),
                       ),

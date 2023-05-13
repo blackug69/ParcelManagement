@@ -10,19 +10,24 @@ class OrderStatus {
 }
 
 class TrackOrder extends StatefulWidget {
+  final String? time;
+  final bool? isLastLocation;
+  TrackOrder({required this.time ,this.isLastLocation});
+
   @override
   _TrackOrderPageState createState() => _TrackOrderPageState();
 }
 
 class _TrackOrderPageState extends State<TrackOrder> {
-  final List<OrderStatus> _orderStatuses = [
-    OrderStatus(
-        station: 'Order Placed', time: '2023-04-16 10:30 AM', checked: true),
-    OrderStatus(station: 'Processing', time: '2023-04-16 11:00 AM'),
-    OrderStatus(station: 'Shipped', time: '2023-04-16 2:00 PM'),
-    OrderStatus(station: 'Out for Delivery', time: '2023-04-17 9:00 AM'),
-    OrderStatus(station: 'Delivered', time: '2023-04-17 11:30 AM'),
-  ];
+  final List<OrderStatus> _orderStatuses = [];
+
+  @override
+  void initState() {
+    _orderStatuses.add(OrderStatus(station: 'Order Placed', time: widget.time!, checked:true));
+    _orderStatuses.add(OrderStatus(station: 'Processing', time: widget.time!, checked: true));
+    _orderStatuses.add(OrderStatus(station: 'Shipped', time: widget.time!, checked: widget.isLastLocation!));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
